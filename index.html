@@ -1,1 +1,1824 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida Mar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: #F5F1E8;
+            color: #6B5C56;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Paper texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.025"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #FAF8F3 0%, #F5F1E8 100%); /* Slightly more vibrant background */
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 60px rgba(0,0,0,0.1);
+        }
+
+        /* Header section with handwritten title */
+        .header {
+            padding: 100px 60px 80px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(180deg, #FAF8F3 0%, #F5F1E8 100%);
+        }
+
+        .header-title {
+            font-family: 'Allura', cursive;
+            font-size: 6em;
+            color: #7A6964; /* Slightly deeper, warmer color */
+            margin-bottom: 25px;
+            line-height: 1.2;
+            position: relative; /* For star positioning */
+        }
+
+        .header-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #B8897D;
+            font-weight: 300;
+        }
+
+        /* Decorative flowers */
+        .flower-decoration {
+            position: absolute;
+            opacity: 0.8; /* Increased opacity for more prominence */
+            width: 80px;
+            height: 80px;
+            z-index: 3;
+        }
+
+        .flower-decoration.top-right {
+            top: 30px;
+            right: 30px;
+        }
+
+        .flower-decoration.bottom-left {
+            bottom: 30px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+        }
+
+        /* Polaroid photo section */
+        .polaroid-section {
+            padding: 80px 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .polaroid-container {
+            position: relative;
+            display: inline-block;
+            margin: 30px 40px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 20px 20px 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: rotate(-3deg);
+            position: relative;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .polaroid:nth-child(2) {
+            transform: rotate(5deg);
+        }
+
+        .polaroid-image {
+            width: 280px;
+            height: 280px;
+            background: #E8E5DF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Allura', cursive;
+            font-size: 3em;
+            color: #B8897D;
+        }
+
+        .polaroid-caption {
+            font-family: 'Allura', cursive;
+            font-size: 2.5em;
+            color: #6B5C56;
+            margin-top: 15px;
+        }
+
+        /* Small flower accent */
+        .flower-accent {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 50px;
+            opacity: 0.8; /* Increased opacity */
+        }
+
+        /* Date section */
+        .date-section {
+            padding: 50px 60px;
+            text-align: center;
+            background: white;
+            margin: 0 100px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Added shadow */
+            border: 1px solid rgba(184, 137, 125, 0.1); /* Added border */
+        }
+
+        .date-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            font-size: 4em;
+            color: #B8897D;
+            font-weight: 300;
+            letter-spacing: 5px;
+        }
+
+        .date-divider span {
+            font-size: 0.6em;
+        }
+
+        /* Timeline section */
+        .timeline-section {
+            padding: 80px 60px;
+            position: relative;
+        }
+
+        .timeline-title {
+            font-family: 'Allura', cursive;
+            font-size: 4em;
+            color: #7A6964; /* Slightly deeper, warmer color */
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 0;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .timeline-time {
+            font-size: 2.8em;
+            color: #B8897D;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .timeline-description {
+            font-size: 1.2em;
+            color: #8B7A75;
+            line-height: 1.8;
+        }
+
+        /* Curved line decoration */
+        .curved-line {
+            width: 100%;
+            height: 150px;
+            margin: 50px 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120"><path d="M0,60 Q100,20 200,60 T400,60" fill="none" stroke="%23B8897D" stroke-width="2" opacity="0.6"/></svg>'); /* Stronger color, thicker line, higher opacity */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* Text section */
+        .text-section {
+            padding: 60px 100px;
+            text-align: center;
+            line-height: 2;
+            font-size: 1.2em;
+            color: #6B5C56;
+            position: relative; /* For cloud positioning */
+        }
+
+        .text-section-title {
+            font-family: 'Allura', cursive;
+            font-size: 4em;
+            color: #7A6964; /* Slightly deeper, warmer color */
+            margin-bottom: 35px;
+        }
+
+        /* Why Mar section with waves */
+        .why-mar-section {
+            padding: 60px 100px;
+            margin: 0 100px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid rgba(184, 137, 125, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            z-index: 1; /* Ensure content is above waves */
+            background: white; /* Add white background */
+        }
+
+        .why-mar-section-title {
+            font-family: 'Allura', cursive;
+            font-size: 4em;
+            color: #7A6964;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .why-mar-section-title span {
+            color: #B8897D; /* Highlight 'Mar' */
+        }
+
+        .why-mar-section p {
+            position: relative;
+            z-index: 2;
+            color: #6B5C56;
+            line-height: 2;
+            font-size: 1.2em;
+        }
+
+        .wave-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; /* Waves behind content */
+            border-radius: 15px;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px; /* Adjust wave height as needed */
+            background-size: 1000px 100px;
+            animation: waveAnimation 30s linear infinite;
+        }
+
+        .wave1 {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 500 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,70 C150,30 350,110 500,70 L500,100 L0,100 Z" fill="%23E8C4C4" opacity="0.3"></path></svg>');
+            animation-delay: 0s;
+            opacity: 0.3;
+            height: 120px;
+        }
+        .wave2 {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 500 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,70 C150,30 350,110 500,70 L500,100 L0,100 Z" fill="%23F5E6D3" opacity="0.4"></path></svg>');
+            animation-delay: -5s;
+            opacity: 0.4;
+            height: 100px;
+        }
+        .wave3 {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 500 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,70 C150,30 350,110 500,70 L500,100 L0,100 Z" fill="%23FFF9E6" opacity="0.5"></path></svg>');
+            animation-delay: -10s;
+            opacity: 0.5;
+            height: 80px;
+        }
+        .wave4 {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 500 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,70 C150,30 350,110 500,70 L500,100 L0,100 Z" fill="%23B8D4D4" opacity="0.6"></path></svg>');
+            animation-delay: -15s;
+            opacity: 0.6;
+            height: 60px;
+        }
+
+        @keyframes waveAnimation {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1000px; }
+        }
+
+
+        /* Calendar section */
+        .calendar-section {
+            padding: 60px 100px;
+            margin: 0 100px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Added shadow */
+            border: 1px solid rgba(184, 137, 125, 0.1); /* Added border */
+            position: relative; /* For moon positioning */
+        }
+
+        .calendar-title {
+            font-family: 'Allura', cursive;
+            font-size: 3.5em;
+            color: #7A6964; /* Slightly deeper, warmer color */
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .calendar {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .calendar-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .calendar-day-name {
+            text-align: center;
+            font-size: 0.9em;
+            color: #B8897D;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            color: #8B7A75;
+            position: relative;
+        }
+
+        .calendar-day.special {
+            color: #E68989; /* More vibrant red/pink */
+            font-weight: 600;
+            font-size: 1.3em;
+        }
+
+        .calendar-day.special::after {
+            content: '♡';
+            position: absolute;
+            font-size: 2.8em;
+            color: #E68989; /* More vibrant red/pink */
+            opacity: 0.4; /* Increased opacity */
+            z-index: -1;
+        }
+
+        /* Location/Info section */
+        .info-section {
+            padding: 80px 100px;
+            text-align: center;
+            position: relative; /* Added for absolute positioning of decorations */
+        }
+
+        .info-section-title {
+            font-family: 'Allura', cursive;
+            font-size: 4em;
+            color: #7A6964; /* Slightly deeper, warmer color */
+            margin-bottom: 50px;
+        }
+
+        .info-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Added shadow */
+            border: 1px solid rgba(184, 137, 125, 0.1); /* Added border */
+        }
+
+        .info-box h3 {
+            font-family: 'Allura', cursive;
+            font-size: 3em;
+            color: #B8897D;
+            margin-bottom: 20px;
+        }
+
+        .info-box p {
+            font-size: 1.1em;
+            color: #8B7A75;
+            line-height: 1.8;
+        }
+
+        /* Gift list section */
+        .gift-section {
+            padding: 80px 100px;
+            background: #FAF8F3;
+            position: relative; /* Added for absolute positioning of decorations */
+        }
+
+        .gift-title {
+            font-family: 'Allura', cursive;
+            font-size: 4em;
+            color: #7A6964; /* Slightly deeper, warmer color */
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative; /* For rattle positioning */
+        }
+
+        .gift-category {
+            margin-bottom: 50px;
+        }
+
+        .gift-category-title {
+            font-size: 1.4em;
+            color: #B8897D;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 1.5px solid rgba(184, 137, 125, 0.2);
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        .gift-item {
+            background: white;
+            padding: 25px 30px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Added shadow */
+        }
+
+        .gift-item:hover {
+            border-color: #E8C4C4;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .gift-item.selected {
+            background: #FFF9F5;
+            border-color: #B8897D;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .gift-checkbox {
+            margin-top: 4px;
+            width: 22px;
+            height: 22px;
+            accent-color: #B8897D;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .gift-bullet {
+            color: #B8897D;
+            font-size: 1.5em;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .gift-content {
+            flex: 1;
+        }
+
+        .gift-name {
+            font-size: 1.2em;
+            color: #6B5C56;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .gift-description {
+            font-size: 1em;
+            color: #8B7A75;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .gift-price {
+            font-size: 1.1em;
+            color: #B8897D;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        /* Footer/Contact section */
+        .footer-section {
+            padding: 80px 100px;
+            text-align: center;
+            background: white;
+            margin: 0 100px 80px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Added shadow */
+            border: 1px solid rgba(184, 137, 125, 0.1); /* Added border */
+            position: relative; /* Added for absolute positioning of decorations */
+        }
+
+        .footer-title {
+            font-family: 'Allura', cursive;
+            font-size: 4em;
+            color: #7A6964; /* Slightly deeper, warmer color */
+            margin-bottom: 30px;
+        }
+
+        .footer-text {
+            font-size: 1.2em;
+            color: #8B7A75;
+            line-height: 2;
+            margin-bottom: 35px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-name {
+            font-family: 'Allura', cursive;
+            font-size: 3em;
+            color: #B8897D;
+            margin-top: 30px;
+            position: relative; /* For star positioning */
+        }
+
+        .contact-icons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .contact-icon {
+            color: white;
+            background: #B8897D; /* Added background */
+            border-radius: 50%;
+            width: 50px; /* Adjusted size */
+            height: 50px; /* Adjusted size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em; /* Adjusted icon size */
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .contact-icon:hover {
+            background: #8B7A75;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Button */
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            border: 1.5px solid #B8897D;
+            border-radius: 25px;
+            color: #B8897D;
+            text-decoration: none;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+        }
+
+        .cta-button:hover {
+            background: #B8897D;
+            color: white;
+        }
+
+        /* Flower SVG */
+        .flower-svg {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Countdown */
+        .countdown-box {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            margin: 50px 100px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Added shadow */
+            border: 1px solid rgba(184, 137, 125, 0.1); /* Added border */
+            position: relative; /* For star positioning */
+        }
+
+        .countdown-label {
+            font-size: 1.2em;
+            color: #8B7A75;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .countdown-display {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .countdown-item {
+            text-align: center;
+        }
+
+        .countdown-number {
+            font-family: 'Allura', cursive;
+            font-size: 4em;
+            color: #B8897D;
+            display: block;
+            line-height: 1;
+        }
+
+        .countdown-label-small {
+            font-size: 0.9em;
+            color: #8B7A75;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Payment floating box */
+        .payment-box {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            border: 2px solid #B8897D;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(100px);
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+
+        .payment-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .payment-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #8B7A75;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .payment-close:hover {
+            color: #B8897D;
+        }
+
+        .payment-title {
+            font-family: 'Allura', cursive;
+            font-size: 2.2em;
+            color: #B8897D;
+            margin-bottom: 15px;
+            padding-right: 30px;
+        }
+
+        .payment-message {
+            font-size: 1em;
+            color: #6B5C56;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .payment-total {
+            background: linear-gradient(135deg, #FFF9F5 0%, #F5F1E8 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .payment-total-label {
+            font-size: 0.9em;
+            color: #8B7A75;
+            margin-bottom: 8px;
+        }
+
+        .payment-total-amount {
+            font-family: 'Allura', cursive;
+            font-size: 3em;
+            color: #B8897D;
+            font-weight: 600;
+        }
+
+        .payment-method {
+            margin-bottom: 20px;
+        }
+
+        .payment-method-title {
+            font-size: 1.05em;
+            color: #B8897D;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .payment-account {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #FAF8F3;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .payment-account-number {
+            flex: 1;
+            color: #6B5C56;
+            font-size: 0.95em;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .copy-button {
+            background: linear-gradient(45deg, #B8897D 0%, #D4C4B8 100%); /* Gradient background */
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .copy-button:hover {
+            background: linear-gradient(45deg, #8B7A75 0%, #B8897D 100%); /* Darker gradient on hover */
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .copy-button.copied {
+            background: linear-gradient(45deg, #B8D4D4 0%, #AEC2C2 100%); /* Greenish gradient when copied */
+        }
+
+        /* Floating Gift Icon */
+        .floating-gift-button {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(45deg, #B8897D 0%, #E8C4C4 100%); /* More vibrant gradient */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25); /* Stronger shadow */
+            z-index: 1001;
+            transition: all 0.3s ease;
+            opacity: 0.9; /* Slightly higher default opacity */
+        }
+
+        .floating-gift-button:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* NEW Decorations */
+        .babystuff-line {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: -30px; /* Adjust to pull up into the previous section */
+            margin-bottom: 50px;
+            z-index: 5;
+            position: relative;
+            background: #FAF8F3; /* Match section background */
+            padding: 20px 0;
+        }
+
+        .babystuff-item {
+            width: 70px;
+            height: 70px;
+            opacity: 0.7;
+            transform: rotate(-5deg);
+        }
+
+        .babystuff-item:nth-child(2) { transform: rotate(5deg); }
+        .babystuff-item:nth-child(3) { transform: rotate(-8deg); }
+
+        .babystuff-line-svg-deco {
+            position: absolute;
+            top: 50%; /* Center the line vertically */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #D4C4B8;
+            opacity: 0.6;
+            z-index: 4;
+            transform: translateY(-50%);
+        }
+
+        .bear-decoration {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 120px; /* Adjust size */
+            height: 120px; /* Adjust size */
+            opacity: 0.8;
+            z-index: 3;
+            transform: rotate(5deg);
+        }
+
+        .info-box-decoration, .gift-decoration, .simple-decoration { /* Combined decoration styles */
+            position: absolute;
+            opacity: 0.6;
+            z-index: 0;
+            pointer-events: none; /* Make sure they don't block clicks */
+        }
+
+        .info-box-decoration.top-right {
+            top: 0px;
+            right: 0px;
+            width: 50px;
+            height: 50px;
+        }
+        .info-box-decoration.bottom-left {
+            bottom: 0px;
+            left: 0px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .gift-decoration.top-left {
+            top: 40px;
+            left: 40px;
+        }
+        .gift-decoration.bottom-right {
+            bottom: 40px;
+            right: 40px;
+        }
+
+        /* Styles for new simple decorations */
+        .simple-decoration.star { width: 15px; height: 15px; }
+        .simple-decoration.cloud { width: 60px; height: 40px; }
+        .simple-decoration.moon { width: 30px; height: 30px; }
+        .simple-decoration.rattle { width: 40px; height: 40px; transform: rotate(-15deg);}
+
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 100%;
+            }
+
+            .header {
+                padding: 80px 40px 60px;
+            }
+
+            .header-title {
+                font-size: 4.5em;
+            }
+
+            .polaroid-section,
+            .timeline-section,
+            .text-section,
+            .info-section,
+            .gift-section,
+            .why-mar-section { /* Added why-mar-section */
+                padding: 60px 40px;
+            }
+
+            .date-section,
+            .calendar-section,
+            .countdown-box,
+            .footer-section,
+            .why-mar-section { /* Added why-mar-section */
+                margin-left: 40px;
+                margin-right: 40px;
+            }
+
+            .babystuff-line {
+                margin-top: -10px;
+                margin-bottom: 30px;
+            }
+            .babystuff-item {
+                width: 60px;
+                height: 60px;
+            }
+            .bear-decoration {
+                width: 100px;
+                height: 100px;
+                bottom: 15px;
+                right: 15px;
+            }
+            .simple-decoration.cloud { width: 50px; height: 35px; }
+            .simple-decoration.rattle { width: 35px; height: 35px; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                box-shadow: none;
+            }
+
+            .header {
+                padding: 60px 30px 40px;
+            }
+
+            .header-title {
+                font-size: 3.5em;
+            }
+
+            .header-subtitle {
+                font-size: 0.8em;
+                letter-spacing: 2px;
+            }
+
+            .polaroid-image {
+                width: 200px;
+                height: 200px;
+                font-size: 2.5em;
+            }
+
+            .polaroid {
+                padding: 15px 15px 50px;
+            }
+
+            .polaroid-caption {
+                font-size: 2em;
+            }
+
+            .polaroid-container {
+                margin: 20px 20px;
+            }
+
+            .date-divider {
+                font-size: 2.8em;
+                gap: 20px;
+            }
+
+            .date-section,
+            .calendar-section,
+            .countdown-box,
+            .footer-section,
+            .why-mar-section { /* Added why-mar-section */
+                margin-left: 20px;
+                margin-right: 20px;
+                padding: 40px 25px;
+            }
+
+            .text-section {
+                padding: 40px 30px;
+                font-size: 1.05em;
+            }
+
+            .text-section-title,
+            .timeline-title,
+            .info-section-title,
+            .gift-title,
+            .footer-title,
+            .why-mar-section-title { /* Added why-mar-section-title */
+                font-size: 2.8em;
+            }
+
+            .timeline-section {
+                padding: 50px 30px;
+            }
+
+            .timeline-time {
+                font-size: 2em;
+            }
+
+            .timeline-description {
+                font-size: 1.05em;
+            }
+
+            .curved-line {
+                height: 100px;
+                margin: 30px 0;
+            }
+
+            .calendar {
+                max-width: 320px;
+            }
+
+            .calendar-day {
+                font-size: 1em;
+            }
+
+            .info-section {
+                padding: 50px 30px;
+            }
+
+            .info-box {
+                padding: 30px 25px;
+            }
+
+            .info-box h3 {
+                font-size: 2.2em;
+            }
+
+            .info-box p {
+                font-size: 1em;
+            }
+
+            .gift-section {
+                padding: 50px 30px;
+            }
+
+            .gift-item {
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .gift-name {
+                font-size: 1.05em;
+            }
+
+            .gift-description {
+                font-size: 0.95em;
+            }
+
+            .gift-price {
+                font-size: 1em;
+            }
+
+            .countdown-number {
+                font-size: 3em;
+            }
+
+            .countdown-display {
+                gap: 25px;
+            }
+
+            .footer-section {
+                margin-bottom: 40px;
+            }
+
+            .footer-text {
+                font-size: 1.05em;
+            }
+
+            .contact-name {
+                font-size: 2.5em;
+            }
+
+            .flower-decoration {
+                width: 30px;
+                height: 30px;
+            }
+
+            .payment-box {
+                bottom: 15px;
+                right: 15px;
+                left: 15px;
+                max-width: none;
+                padding: 25px;
+            }
+
+            .payment-title {
+                font-size: 1.8em;
+            }
+
+            .payment-total-amount {
+                font-size: 2.5em;
+            }
+
+            .payment-account {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .copy-button {
+                width: 100%;
+            }
+
+            .floating-gift-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8em;
+                bottom: 15px;
+                left: 15px;
+            }
+            .babystuff-line {
+                margin-top: 0px;
+                margin-bottom: 20px;
+            }
+            .babystuff-item {
+                width: 40px;
+                height: 40px;
+            }
+            .bear-decoration {
+                width: 60px;
+                height: 60px;
+            }
+            .simple-decoration.cloud { width: 40px; height: 28px; }
+            .simple-decoration.rattle { width: 30px; height: 30px; }
+        }
+
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 2.8em;
+            }
+
+            .header-subtitle {
+                font-size: 0.7em;
+            }
+
+            .polaroid-image {
+                width: 160px;
+                height: 160px;
+                font-size: 2em;
+            }
+
+            .date-divider {
+                font-size: 2.2em;
+                gap: 15px;
+            }
+
+            .text-section-title,
+            .timeline-title,
+            .info-section-title,
+            .gift-title,
+            .footer-title,
+            .why-mar-section-title { /* Added why-mar-section-title */
+                font-size: 2.2em;
+            }
+
+            .gift-category-title {
+                font-size: 1.1em;
+            }
+            .babystuff-item {
+                width: 35px;
+                height: 35px;
+                gap: 20px;
+            }
+            .bear-decoration {
+                width: 50px;
+                height: 50px;
+            }
+            .simple-decoration.star { width: 10px; height: 10px; }
+            .simple-decoration.cloud { width: 35px; height: 25px; }
+            .simple-decoration.moon { width: 20px; height: 20px; }
+            .simple-decoration.rattle { width: 25px; height: 25px; }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+            <!-- Header --><div class="header fade-in">
+                <div class="flower-decoration top-right">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 0C55 10 60 20 60 30C60 40 55 50 50 60C45 50 40 40 40 30C40 20 45 10 50 0Z" fill="#E8C4C4" opacity="0.8"/>
+                        <path d="M75 25C80 30 85 35 90 40C95 45 90 50 85 55C80 60 75 65 70 70C65 75 60 70 55 65C50 60 45 55 40 50C35 45 40 40 45 35C50 30 55 25 60 20C65 15 70 20 75 25Z" fill="#F5E6D3" opacity="0.8"/>
+                        <path d="M25 25C20 30 15 35 10 40C5 45 10 50 15 55C20 60 25 65 30 70C35 75 40 70 45 65C50 60 55 55 60 50C65 45 60 40 55 35C50 30 45 25 40 20C35 15 30 20 25 25Z" fill="#B8D4D4" opacity="0.8"/>
+                        <path d="M0 50C10 55 20 60 30 60C40 60 50 55 60 50C50 45 40 40 30 40C20 40 10 45 0 50Z" fill="#FFF9E6" opacity="0.8"/>
+                        <path d="M100 50C90 55 80 60 70 60C60 60 50 55 40 50C50 45 60 40 70 40C80 40 90 45 100 50Z" fill="#E8C4C4" opacity="0.8"/>
+                    </svg>
+                </div>
+                <div class="header-title">
+                    <svg class="simple-decoration star" style="position: absolute; top: 10px; left: 10%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Bienvenida
+                    <svg class="simple-decoration star" style="position: absolute; bottom: 10px; right: 15%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="header-subtitle">Una noticia especial</div>
+            </div>
+
+            <!-- Polaroid photos --><div class="polaroid-section fade-in">
+                <div class="polaroid-container">
+                    <div class="polaroid">
+                        <div class="polaroid-image">Nelson</div>
+                        <div class="polaroid-caption">papá</div>
+                    </div>
+                    <div class="flower-accent">✿</div>
+                </div>
+                <div class="polaroid-container">
+                    <div class="polaroid">
+                        <div class="polaroid-image">Miriam</div>
+                        <div class="polaroid-caption">mamá</div>
+                    </div>
+                    <div class="flower-accent" style="left: -10px; right: auto;">✿</div>
+                </div>
+            </div>
+
+            <!-- Baby stuff line --><div class="babystuff-line fade-in">
+                <div class="babystuff-line-svg-deco"></div>
+                <!-- Baby Body --><svg class="babystuff-item" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 15C30 10 35 10 40 10L60 10C65 10 70 10 70 15L70 40C70 50 65 55 60 55L40 55C35 55 30 50 30 40L30 15Z" stroke="#B8897D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M30 45L20 55L20 80C20 85 25 90 30 90H70C75 90 80 85 80 80L80 55L70 45" stroke="#B8897D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M35 25C37 25 38 27 38 29C38 31 37 33 35 33" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M65 25C63 25 62 27 62 29C62 31 63 33 65 33" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <!-- Baby Hat --><svg class="babystuff-item" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 40C25 30 30 20 50 20C70 20 75 30 75 40L75 60C75 70 70 80 50 80C30 80 25 70 25 60L25 40Z" stroke="#B8897D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M50 20C50 15 52 10 55 10C58 10 60 15 60 20" stroke="#B8897D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M30 50H70" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="50" cy="15" r="4" fill="#E8C4C4"/>
+                </svg>
+                <!-- Baby Onesie/Romper --><svg class="babystuff-item" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 20H70L75 45L60 70L60 85L40 85L40 70L25 45L30 20Z" stroke="#B8897D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M30 20C30 15 35 10 50 10C65 10 70 15 70 20" stroke="#B8897D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M40 35L60 35" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M40 50L60 50" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+
+            <!-- Date --><div class="date-section fade-in">
+                <div class="date-divider">
+                    16 <span>|</span> 11 <span>|</span> 25
+                </div>
+            </div>
+
+            <div class="curved-line"></div>
+
+            <!-- Intro text --><div class="text-section fade-in">
+                <svg class="simple-decoration cloud" style="position: absolute; top: 20px; left: 15%;" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M47.17 10.03C44.97 4.31 39.46 0 33 0C27.94 0 23.33 2.5 20.44 6.32C19.1 5.48 17.58 5 16 5C12.14 5 9 8.14 9 12C9 12.33 9.03 12.65 9.08 12.97C4.05 13.98 0 18.25 0 23.5C0 29.28 4.72 34 10.5 34H46.5C54.51 34 60 27.51 60 19.5C60 13.9 55.45 9.21 49.97 8.03C48.91 8.7 47.7 9.21 46.5 9.5L47.17 10.03Z" fill="#D4C4B8" opacity="0.4"/></svg>
+                <div class="text-section-title">Hola</div>
+                <p>
+                    La vida nos sorprende de maneras maravillosas. En este momento, 
+                    estamos viviendo algo que no podemos guardar solo para nosotros.
+                </p>
+                <p style="margin-top: 25px;">
+                    Por diversas razones, no pudimos organizar un baby shower tradicional. 
+                    Pero no queríamos que eso nos impidiera tenerte cerca en este momento tan especial.
+                </p>
+            </div>
+
+            <div class="curved-line"></div>
+
+            <!-- Timeline --><div class="timeline-section fade-in">
+                <div class="timeline-title">Te contamos...</div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">Noviembre 2025</div>
+                    <div class="timeline-description">Nuestra pequeña llegará al mundo</div>
+                    <svg class="info-box-decoration top-right" style="width: 30px; height: 30px; top: -10px; right: -10px;">
+                        <circle cx="15" cy="15" r="3" fill="#B8D4D4" opacity="0.6"/>
+                        <circle cx="25" cy="25" r="2" fill="#E8C4C4" opacity="0.6"/>
+                        <circle cx="5" cy="20" r="2.5" fill="#F5E6D3" opacity="0.6"/>
+                    </svg>
+                </div>
+
+                <div class="curved-line" style="height: 80px;"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">Su nombre es</div>
+                    <div class="timeline-description" style="font-family: 'Allura', cursive; font-size: 4em; color: #B8897D; margin-top: 15px;">Mar</div>
+                    <svg class="info-box-decoration bottom-left" style="width: 30px; height: 30px; bottom: -10px; left: -10px;">
+                        <circle cx="15" cy="15" r="3" fill="#B8D4D4" opacity="0.6"/>
+                        <circle cx="25" cy="25" r="2" fill="#E8C4C4" opacity="0.6"/>
+                        <circle cx="5" cy="20" r="2.5" fill="#F5E6D3" opacity="0.6"/>
+                    </svg>
+                </div>
+
+                <div class="curved-line" style="height: 80px;"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">Es una niña</div>
+                    <div class="timeline-description">Una princesita que llegará a llenar nuestro mundo</div>
+                    <svg class="info-box-decoration top-right" style="width: 30px; height: 30px; top: -10px; right: -10px;">
+                        <circle cx="15" cy="15" r="3" fill="#B8D4D4" opacity="0.6"/>
+                        <circle cx="25" cy="25" r="2" fill="#E8C4C4" opacity="0.6"/>
+                        <circle cx="5" cy="20" r="2.5" fill="#F5E6D3" opacity="0.6"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Why Mar section --><div class="why-mar-section fade-in">
+                <div class="why-mar-section-title">¿Por qué <span>Mar</span>?</div>
+                <p>
+                    Elegimos este nombre porque el mar representa todo lo que deseamos para ella: 
+                    inmensidad para sus sueños, libertad para su espíritu, profundidad para su corazón.
+                </p>
+                <div class="wave-container">
+                    <div class="wave wave1"></div>
+                    <div class="wave wave2"></div>
+                    <div class="wave wave3"></div>
+                    <div class="wave wave4"></div>
+                </div>
+            </div>
+
+            <div class="curved-line"></div>
+
+            <!-- Countdown --><div class="polaroid-section fade-in">
+                <div class="countdown-box">
+                    <svg class="simple-decoration star" style="position: absolute; top: 15px; left: 15px;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg class="simple-decoration star" style="position: absolute; bottom: 15px; right: 15px;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <div class="countdown-label">Faltan aproximadamente...</div>
+                    <div class="countdown-display">
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="days">0</span>
+                            <span class="countdown-label-small">Días</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="hours">0</span>
+                            <span class="countdown-label-small">Horas</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="minutes">0</span>
+                            <span class="countdown-label-small">Min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar --><div class="calendar-section fade-in">
+                <svg class="simple-decoration moon" style="position: absolute; top: 20px; right: 20px;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.64 13.5A9 9 0 1110.5 2.36a9 9 0 0011.14 11.14z" stroke="#F5E6D3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div class="calendar-title">Noviembre</div>
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <div class="calendar-day-name">Lu</div>
+                        <div class="calendar-day-name">Ma</div>
+                        <div class="calendar-day-name">Mi</div>
+                        <div class="calendar-day-name">Ju</div>
+                        <div class="calendar-day-name">Vi</div>
+                        <div class="calendar-day-name">Sá</div>
+                        <div class="calendar-day-name">Do</div>
+                    </div>
+                    <div class="calendar-days">
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day"></div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day">10</div>
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day">15</div>
+                        <div class="calendar-day special">16</div>
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day">18</div>
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                    </div>
+                </div>
+                <p style="margin-top: 35px; text-align: center; font-size: 1.1em; color: #8B7A75; font-style: italic;">
+                    El día que nuestra vida cambiará para siempre
+                </p>
+            </div>
+
+            <div class="curved-line"></div>
+
+            <!-- Parents info --><div class="info-section fade-in">
+                <div class="info-section-title">Los Papis</div>
+                <div class="info-box">
+                    <h3>Nelson Portugal</h3>
+                    <p>Listo para ser su héroe, su protector, el que le enseñe que puede lograr todo lo que se proponga</p>
+                </div>
+                <div class="info-box">
+                    <h3>Miriam Córdova</h3>
+                    <p>Lista para ser su refugio, su confidente, la que le muestre que es amada incondicionalmente</p>
+                </div>
+                <!-- Bear Decoration Improved --><svg class="bear-decoration" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke="#B8897D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Head --><path d="M50 30 C40 20 30 25 30 35 C30 45 40 50 50 50 C60 50 70 45 70 35 C70 25 60 20 50 30 Z" fill="#F5F1E8"/>
+                        <!-- Ears --><path d="M35 25 C30 20 25 25 25 30 C25 35 30 40 35 35 L35 25Z" fill="#F5F1E8"/>
+                        <path d="M65 25 C70 20 75 25 75 30 C75 35 70 40 65 35 L65 25Z" fill="#F5F1E8"/>
+                        <!-- Body --><path d="M50 50 C35 50 25 65 25 75 C25 85 35 90 50 90 C65 90 75 85 75 75 C75 65 65 50 50 50 Z" fill="#F5F1E8"/>
+                        <!-- Muzzle --><circle cx="50" cy="38" r="5" fill="#FFF9E6" stroke="#B8897D" stroke-width="1"/>
+                        <!-- Nose --><path d="M50 37 C49.5 36.5 49.5 37.5 50 38 C50.5 37.5 50.5 36.5 50 37 Z" fill="#B8897D"/>
+                        <!-- Mouth --><path d="M50 39 L50 42 C48 42 48 40 48 40" stroke="#B8897D" stroke-width="1"/>
+                        <!-- Eyes --><circle cx="43" cy="30" r="1.5" fill="#B8897D" stroke="none"/>
+                        <circle cx="57" cy="30" r="1.5" fill="#B8897D" stroke="none"/>
+                        <!-- Balloon --><path d="M78 15 C82 10 87 10 90 15 C93 20 93 25 90 30 C87 35 82 35 78 30 C74 25 74 20 78 15 Z" fill="#E8C4C4" opacity="0.8"/>
+                        <path d="M84 28 L78 40" stroke="#B8897D" stroke-width="0.8" opacity="0.7"/>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="curved-line"></div>
+
+            <!-- Gift list --><div class="gift-section fade-in">
+                <svg class="simple-decoration rattle" style="position: absolute; top: 15px; left: 10%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#E8C4C4"/><path d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8z" fill="#B8897D"/><rect x="11" y="16" width="2" height="6" fill="#B8897D"/></svg>
+
+                <div class="gift-decoration top-left">
+                    <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="25" cy="25" r="4" fill="#E8C4C4"/>
+                        <circle cx="15" cy="10" r="3" fill="#B8D4D4"/>
+                        <circle cx="35" cy="10" r="3" fill="#F5E6D3"/>
+                        <circle cx="10" cy="25" r="3" fill="#FFF9E6"/>
+                        <circle cx="40" cy="25" r="3" fill="#E8C4C4"/>
+                        <circle cx="15" cy="40" r="3" fill="#B8D4D4"/>
+                        <circle cx="35" cy="40" r="3" fill="#F5E6D3"/>
+                    </svg>
+                </div>
+                <div class="gift-decoration bottom-right">
+                    <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="25" cy="25" r="4" fill="#F5E6D3"/>
+                        <circle cx="15" cy="10" r="3" fill="#FFF9E6"/>
+                        <circle cx="35" cy="10" r="3" fill="#E8C4C4"/>
+                        <circle cx="10" cy="25" r="3" fill="#B8D4D4"/>
+                        <circle cx="40" cy="25" r="3" fill="#F5E6D3"/>
+                        <circle cx="15" cy="40" r="3" fill="#FFF9E6"/>
+                        <circle cx="35" cy="40" r="3" fill="#E8C4C4"/>
+                    </svg>
+                </div>
+                <div class="gift-title">Si quieres regalarnos algo</div>
+                <div style="text-align: center; margin-bottom: 50px; padding: 40px; background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid rgba(184, 137, 125, 0.1);">
+                    <p style="color: #8B7A75; line-height: 2; font-size: 1.15em;">
+                        Tu presencia en nuestra vida ya es un regalo. 
+                        Pero si tu corazón desea obsequiarnos algo para la llegada de Mar, 
+                        aquí hay algunas cositas que nos serían útiles.
+                    </p>
+                </div>
+
+                <div id="giftList"></div>
+            </div>
+
+            <div class="curved-line"></div>
+
+            <!-- Footer --><div class="footer-section fade-in">
+                <div class="footer-title">Gracias</div>
+                <p class="footer-text">
+                    Tu compañía, aunque sea a la distancia, significa el mundo para nosotros. 
+                    Estamos ansiosos por que conozcas a nuestra pequeña Mar.
+                </p>
+                <div style="width: 100px; height: 2px; background: #D4C4B8; margin: 35px auto;"></div>
+                <div class="contact-name">
+                    <svg class="simple-decoration star" style="position: absolute; top: 0px; left: 10%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Nelson, Miriam y Mar
+                    <svg class="simple-decoration star" style="position: absolute; bottom: 0px; right: 10%;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="contact-icons">
+                    <a href="https://wa.me/51994607605" target="_blank" class="contact-icon" aria-label="WhatsApp">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12.043 2.027c-5.462 0-9.917 4.455-9.917 9.917c0 1.751.464 3.468 1.352 4.966L2.058 22l5.127-1.31c1.425.787 3.013 1.226 4.858 1.226c5.463 0 9.917-4.455 9.917-9.917S17.505 2.027 12.043 2.027M17.009 15.655c-.179.288-.669.547-.985.584c-.316.037-1.407.294-3.375-.76c-1.968-1.055-3.235-3.284-3.359-3.447c-.125-.163-.984-1.304-.707-1.905c.277-.601.481-.801.669-.982c.19-.179.317-.288.423-.483c.106-.195.055-.365-.027-.514c-.08-.149-.669-1.608-.917-2.193c-.24-.572-.489-.499-.669-.499c-.18.001-.399-.009-.619-.009c-.219 0-.583.078-.899.435c-.316.357-1.204 1.168-1.204 2.853c0 1.685 1.231 3.298 1.409 3.538c.179.24.257.365 2.404 7.051c2.251.657 2.251.43 2.659.409c.408-.022 1.309-.53 1.517-.991c.209-.462.209-.855.147-.991s-.19-.24-.409-.344" /></svg>
+                    </a>
+                </div>
+                <svg class="info-box-decoration top-right" style="width: 50px; height: 50px; top: 10px; right: 10px;">
+                    <path d="M25 5 C30 10 35 15 35 20 C35 25 30 30 25 35 C20 30 15 25 15 20 C15 15 20 10 25 5 Z" fill="#E8C4C4" opacity="0.6"/>
+                </svg>
+                <svg class="info-box-decoration bottom-left" style="width: 50px; height: 50px; bottom: 10px; left: 10px;">
+                    <path d="M25 5 C30 10 35 15 35 20 C35 25 30 30 25 35 C20 30 15 25 15 20 C15 15 20 10 25 5 Z" fill="#F5E6D3" opacity="0.6"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Gift Button --><button class="floating-gift-button" onclick="togglePaymentBox()" aria-label="Abrir caja de regalos">
+        🎁
+    </button>
+
+    <!-- Payment Floating Box --><div class="payment-box" id="paymentBox">
+        <button class="payment-close" onclick="closePaymentBox()">✕</button>
+        <div class="payment-title">¡Gracias por este regalo!</div>
+        <p class="payment-message">
+            Tu cariño significa mucho para nosotros. Puedes completar tu regalo por el monto seleccionado a través de Yape o Transferencia.
+        </p>
+
+        <div class="payment-total">
+            <div class="payment-total-label">Monto total seleccionado</div>
+            <div class="payment-total-amount" id="totalAmount">S/ 0</div>
+        </div>
+
+        <div class="payment-method">
+            <div class="payment-method-title">Yape</div>
+            <div class="payment-account">
+                <span class="payment-account-number">994 607 605</span>
+                <button class="copy-button" onclick="copyToClipboard('994607605', this)">Copiar</button>
+            </div>
+        </div>
+
+        <div class="payment-method">
+            <div class="payment-method-title">Transferencia BBVA</div>
+            <div class="payment-account">
+                <span class="payment-account-number">0011-0360-0200380612</span>
+                <button class="copy-button" onclick="copyToClipboard('001103600200380612', this)">Copiar</button>
+            </div>
+        </div>
+
+        <div class="payment-method">
+            <div class="payment-method-title">CCI (Otros Bancos)</div>
+            <div class="payment-account">
+                <span class="payment-account-number">011-360-000200380612-58</span>
+                <button class="copy-button" onclick="copyToClipboard('01136000020038061258', this)">Copiar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Countdown
+        function updateCountdown() {
+            const targetDate = new Date('2025-11-16T00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+            } else {
+                 document.getElementById('days').textContent = 0;
+                 document.getElementById('hours').textContent = 0;
+                 document.getElementById('minutes').textContent = 0;
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+
+        // Gift list
+        const gifts = {
+            'Cuidado y Confort': [
+                { name: 'Cambiador de pañales', description: 'Colchoncito Cambiador ExtraConfor Monchitos', price: 'S/ 141' },
+                { name: 'Almohada de lactancia', description: 'Pack Kálingo', price: 'S/ 211' },
+                { name: 'Monitor/cámara de bebé', description: 'MomCozy Vigilabebés de vídeo de alto rendimiento BM01', price: 'S/ 643' },
+                { name: 'Fular', description: 'Fular ergonómico de algodón para bebé color arena', price: 'S/ 115' },
+            ],
+            'Higiene y Cuidado': [
+                { name: 'Pañales', description: 'Pañal Huggies Dermacare Talla RN 78 unid', price: 'S/ 55' },
+                { name: 'Toallas húmedas', description: 'Toallitas Húmedas WATERWIPES Caja 720un', price: 'S/ 175' },
+                { name: 'Aspirador nasal manual', description: 'MomCozy Aspirador nasal 2 en 1 para bebés con pulverizador', price: 'S/ 133' },
+                { name: 'Cremas, Shampoo, Aceite', description: 'Pack Eucerin Baby Shampoo + Crema Corporal + Pomada', price: 'S/ 371' },
+                { name: 'Termómetro digital', description: 'Termómetro Infrarrojo Berrcom JXB178', price: 'S/ 99' },
+            ],
+            'Alimentación': [
+                { name: 'Biberones', description: 'Set Natural 3.0 125ml + 260ml + AFV125ml + AFV260ml + Cepillo + Chupón', price: 'S/ 251' },
+            ],
+            'Transporte': [
+                { name: 'Asiento de bebé para carro', description: 'Car Seat Sens US with Base Aton G Cybex', price: 'S/ 1,369' },
+                { name: 'Coche', description: 'Coche Yoyo2 + cobertura 6+ | Negro', price: 'S/ 2,319' },
+                { name: 'Pack Recién Nacido', description: 'Yoyo 0 Meses a + | Negro Stokke', price: 'S/ 999' },
+            ]
+        };
+
+        const giftListContainer = document.getElementById('giftList');
+        let giftIndex = 0;
+
+        Object.entries(gifts).forEach(([category, items]) => {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'gift-category';
+            
+            const categoryTitle = document.createElement('div');
+            categoryTitle.className = 'gift-category-title';
+            categoryTitle.textContent = category;
+            categoryDiv.appendChild(categoryTitle);
+
+            items.forEach(gift => {
+                const item = document.createElement('div');
+                item.className = 'gift-item';
+                const currentIndex = giftIndex++;
+                
+                // Extract numeric price, remove currency and commas
+                const priceMatch = gift.price.match(/[\d,]+/);
+                const numericPrice = priceMatch ? parseInt(priceMatch[0].replace(/,/g, '')) : 0;
+                
+                item.setAttribute('data-price', numericPrice);
+                item.innerHTML = `
+                    <input type="checkbox" class="gift-checkbox" id="gift-${currentIndex}">
+                    <div class="gift-bullet">•</div>
+                    <div class="gift-content">
+                        <div class="gift-name">${gift.name}</div>
+                        <div class="gift-description">${gift.description}</div>
+                        <div class="gift-price">${gift.price}</div>
+                    </div>
+                `;
+
+                item.addEventListener('click', function(e) {
+                    // Prevent toggling checkbox if the click was directly on it
+                    if (e.target.type !== 'checkbox') {
+                         const checkbox = this.querySelector('.gift-checkbox');
+                         // Only toggle if the target is not the checkbox itself
+                         if (e.target !== checkbox) {
+                             checkbox.checked = !checkbox.checked;
+                             // Manually trigger change event for consistent behavior
+                             const changeEvent = new Event('change');
+                             checkbox.dispatchEvent(changeEvent);
+                         }
+                    }
+                });
+
+                const checkbox = item.querySelector('.gift-checkbox');
+                checkbox.addEventListener('change', function() {
+                    // Use checked status to toggle class
+                    if (this.checked) {
+                        item.classList.add('selected');
+                    } else {
+                        item.classList.remove('selected');
+                    }
+                    updatePaymentBox();
+                });
+
+
+                categoryDiv.appendChild(item);
+            });
+
+            giftListContainer.appendChild(categoryDiv);
+        });
+
+        // Payment box functions
+        function updatePaymentBox() {
+            const selectedItems = document.querySelectorAll('.gift-item.selected');
+            const paymentBox = document.getElementById('paymentBox');
+            const totalAmountEl = document.getElementById('totalAmount');
+            
+            if (selectedItems.length > 0) {
+                let total = 0;
+                selectedItems.forEach(item => {
+                    // Ensure data-price exists and is a number
+                    const priceAttr = item.getAttribute('data-price');
+                    const price = priceAttr ? parseInt(priceAttr) : 0;
+                    if (!isNaN(price)) {
+                       total += price;
+                    } else {
+                       console.warn("Invalid price found for item:", item);
+                    }
+                });
+                
+                totalAmountEl.textContent = `S/ ${total.toLocaleString('es-PE')}`;
+                paymentBox.classList.add('visible');
+            } else {
+                paymentBox.classList.remove('visible');
+            }
+        }
+
+
+        function closePaymentBox() {
+            document.getElementById('paymentBox').classList.remove('visible');
+        }
+
+        function togglePaymentBox() {
+            updatePaymentBox(); // Update total before showing
+            if (document.querySelectorAll('.gift-item.selected').length > 0) {
+                document.getElementById('paymentBox').classList.add('visible');
+            } else {
+                 // Optionally show a message if nothing is selected
+                 // alert("Por favor, selecciona al menos un regalo.");
+                 // Or just do nothing / keep it hidden
+                 closePaymentBox();
+            }
+        }
+
+
+        function copyToClipboard(text, button) {
+            // Remove spaces from the text to be copied
+            const textToCopy = text.replace(/\s/g, ''); 
+            
+            // Use the modern Clipboard API if available
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        showCopyFeedback(button, '¡Copiado!', true);
+                    })
+                    .catch(err => {
+                        console.error('Error al copiar (Clipboard API):', err);
+                        fallbackCopyToClipboard(textToCopy, button);
+                    });
+            } else {
+                // Fallback for older browsers or restricted environments
+                fallbackCopyToClipboard(textToCopy, button);
+            }
+        }
+
+        function fallbackCopyToClipboard(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            // Style to make it invisible and non-disruptive
+            textArea.style.position = 'fixed'; 
+            textArea.style.top = '-9999px';
+            textArea.style.left = '-9999px';
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            textArea.style.padding = '0';
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            textArea.style.background = 'transparent';
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            let successful = false;
+            try {
+                successful = document.execCommand('copy');
+            } catch (err) {
+                console.error('Error al copiar (fallback):', err);
+            }
+
+            document.body.removeChild(textArea);
+
+            if (successful) {
+                showCopyFeedback(button, '¡Copiado!', true);
+            } else {
+                console.error('No se pudo copiar el texto');
+                showCopyFeedback(button, 'Error', false);
+            }
+        }
+
+        function showCopyFeedback(button, message, success) {
+            const originalText = 'Copiar'; // Store the original text
+            button.textContent = message;
+            if (success) {
+                button.classList.add('copied');
+            } else {
+                // Optionally add an error class
+                 button.classList.add('error'); // Example: Define .error style if needed
+            }
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+                 button.classList.remove('error'); // Remove error class too
+            }, 2000);
+        }
+
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
+
