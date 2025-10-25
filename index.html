@@ -123,8 +123,8 @@
         }
 
         .polaroid-image {
-            width: 280px;
-            height: 280px;
+            width: 364px;
+            height: 364px;
             background: #E8E5DF;
             display: flex;
             align-items: center;
@@ -133,7 +133,6 @@
             font-size: 3em;
             color: #B8897D;
         }
-
         .polaroid-caption {
             font-family: 'Allura', cursive;
             font-size: 2.5em;
@@ -680,13 +679,15 @@
         /* Payment floating box */
         .payment-box {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
             background: white;
             border: 2px solid #B8897D;
             border-radius: 15px;
-            padding: 30px;
-            max-width: 400px;
+            padding: 25px;
+            max-width: 380px;
+            max-height: 85vh;
+            overflow-y: auto;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             z-index: 1000;
             opacity: 0;
@@ -721,17 +722,17 @@
 
         .payment-title {
             font-family: 'Allura', cursive;
-            font-size: 2.2em;
+            font-size: 1.8em;
             color: #B8897D;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             padding-right: 30px;
         }
 
         .payment-message {
-            font-size: 1em;
+            font-size: 0.9em;
             color: #6B5C56;
-            line-height: 1.7;
-            margin-bottom: 20px;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
 
         .payment-total {
@@ -755,15 +756,77 @@
             font-weight: 600;
         }
 
+        /* Lista de regalos seleccionados */
+        .selected-gifts-list {
+            background: linear-gradient(135deg, #FFF9F5 0%, #F5F1E8 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 2px dashed #B8897D;
+        }
+
+        .selected-gifts-title {
+            font-size: 0.95em;
+            color: #B8897D;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .selected-gift-item {
+            background: white;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 3px solid #B8897D;
+        }
+
+        .selected-gift-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .selected-gift-name {
+            font-size: 0.88em;
+            color: #6B5C56;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .selected-gift-price {
+            font-size: 0.8em;
+            color: #B8897D;
+            font-weight: 500;
+        }
+
+        .screenshot-reminder {
+            background: #FFF9E6;
+            border: 1px solid #B8897D;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .screenshot-reminder-text {
+            font-size: 0.82em;
+            color: #6B5C56;
+            line-height: 1.5;
+        }
+
+        .screenshot-reminder-text strong {
+            color: #B8897D;
+        }
+
         .payment-method {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .payment-method-title {
-            font-size: 1.05em;
+            font-size: 0.95em;
             color: #B8897D;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .payment-account {
@@ -771,7 +834,7 @@
             align-items: center;
             gap: 10px;
             background: #FAF8F3;
-            padding: 12px 15px;
+            padding: 10px 12px;
             border-radius: 8px;
             margin-bottom: 8px;
             font-family: 'Montserrat', sans-serif;
@@ -780,7 +843,7 @@
         .payment-account-number {
             flex: 1;
             color: #6B5C56;
-            font-size: 0.95em;
+            font-size: 0.88em;
             font-weight: 500;
             letter-spacing: 0.5px;
         }
@@ -984,10 +1047,10 @@
                 font-size: 0.8em;
                 letter-spacing: 2px;
             }
-
+            
             .polaroid-image {
-                width: 200px;
-                height: 200px;
+                width: 260px;
+                height: 260px;
                 font-size: 2.5em;
             }
 
@@ -1125,19 +1188,61 @@
             }
 
             .payment-box {
-                bottom: 15px;
-                right: 15px;
-                left: 15px;
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
                 max-width: none;
-                padding: 25px;
+                padding: 20px;
+                max-height: 80vh;
             }
 
             .payment-title {
-                font-size: 1.8em;
+                font-size: 1.5em;
             }
 
             .payment-total-amount {
-                font-size: 2.5em;
+                font-size: 1.8em !important;
+            }
+
+            .selected-gift-item {
+                padding: 8px 10px;
+            }
+
+            .selected-gift-name {
+                font-size: 0.85em;
+            }
+
+            .selected-gift-price {
+                font-size: 0.78em;
+            }
+
+            .screenshot-reminder {
+                padding: 10px;
+            }
+
+            .screenshot-reminder-text {
+                font-size: 0.78em;
+            }
+
+            .payment-message {
+                font-size: 0.85em;
+                margin-bottom: 12px;
+            }
+
+            .payment-method {
+                margin-bottom: 10px;
+            }
+
+            .payment-method-title {
+                font-size: 0.9em;
+            }
+
+            .payment-account {
+                padding: 8px 10px;
+            }
+
+            .payment-account-number {
+                font-size: 0.82em;
             }
 
             .payment-account {
@@ -1184,8 +1289,8 @@
             }
 
             .polaroid-image {
-                width: 160px;
-                height: 160px;
+                width: 208px;
+                height: 208px;
                 font-size: 2em;
             }
 
@@ -1410,22 +1515,6 @@
         </div>
 
         <div class="curved-line"></div>
-
- <!-- Timeline --><div class="timeline-section fade-in">
-            <div class="timeline-title">Te contamos...</div>
-            
-            <div class="timeline-item">
-                <div class="timeline-time">Noviembre 2025</div>
-                <div class="timeline-description">Nuestra pequeña llegará al mundo</div>
-                
-                <!-- --- NUEVO DETALLE: Biberón --- --><svg class="decoration" style="position: absolute; top: 0; right: 10%; width: 25px; height: 25px; opacity: 0.7;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C9 2 7 4 7 7V13C7 16 9 18 12 18C15 18 17 16 17 13V7C17 4 15 2 12 2Z" fill="#FAF8F3" stroke="#B8897D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M10 20H14V22H10V20Z" fill="#B8897D"/>
-                    <path d="M10 7L14 7" stroke="#D4C4B8" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-            </div>
-
-            <div class="curved-line" style="height: 80px;"></div>
 
 <!-- Timeline -->
         <div class="timeline-section fade-in">
@@ -1702,7 +1791,7 @@
                 <div class="footer-title">Gracias</div>
                 <p class="footer-text">
                     Tu compañía, aunque sea a la distancia, significa el mundo para nosotros. 
-                    Estamos ansiosos por que conozcas a nuestra pequeña Mar.
+                    Estamos entusiasmados por que conozcas a nuestra pequeña Mar.
                 </p>
                 <div style="width: 100px; height: 2px; background: #D4C4B8; margin: 35px auto;"></div>
                 <div class="contact-name">
@@ -1752,20 +1841,33 @@
     <!-- Payment Floating Box -->
     <div class="payment-box" id="paymentBox">
         <button class="payment-close" onclick="closePaymentBox()">✕</button>
-        <div class="payment-title">¡Gracias por este regalo!</div>
-        <p class="payment-message">
-            Tu cariño significa mucho para nosotros. Puedes completar tu regalo por el monto seleccionado a través de Yape o Transferencia.
-        </p>
-
-        <div class="payment-total">
-            <div class="payment-total-label">Monto total seleccionado</div>
-            <div class="payment-total-amount" id="totalAmount">S/ 0</div>
+        <div class="payment-title">Gracias por tu regalo</div>
+        
+        <!-- Lista de regalos seleccionados -->
+        <div class="selected-gifts-list">
+            <div class="selected-gifts-title">REGALOS SELECCIONADOS</div>
+            <div id="selectedGiftsList"></div>
+            <div style="text-align: center; margin-top: 12px; padding-top: 12px; border-top: 2px dashed #B8897D;">
+                <div style="font-size: 0.8em; color: #8B7A75; margin-bottom: 5px;">Total</div>
+                <div class="payment-total-amount" id="totalAmount" style="font-size: 1.8em;">S/ 0</div>
+            </div>
         </div>
 
+        <!-- Recordatorio de screenshot -->
+        <div class="screenshot-reminder">
+            <div class="screenshot-reminder-text">
+                <strong>Por favor:</strong> Captura esta pantalla y envíanosla. Así podremos identificar tu regalo. ¡Muchas gracias! 
+            </div>
+        </div>
+
+        <p class="payment-message">
+            Puedes realizar el regalo mediante:
+        </p>
+
         <div class="payment-method">
-            <div class="payment-method-title">Yape</div>
+            <div class="payment-method-title">Plin</div>
             <div class="payment-account">
-                <span class="payment-account-number">994 607 605</span>
+                <span class="payment-account-number">920384279</span>
                 <button class="copy-button" onclick="copyToClipboard('994607605', this)">Copiar</button>
             </div>
         </div>
@@ -1906,11 +2008,16 @@
         // Payment box functions
         function updatePaymentBox() {
             const selectedItems = document.querySelectorAll('.gift-item.selected');
-            const paymentBox = document.getElementById('paymentBox'); // <--- Necesario
+            const paymentBox = document.getElementById('paymentBox');
             const totalAmountEl = document.getElementById('totalAmount');
+            const selectedGiftsList = document.getElementById('selectedGiftsList');
             let total = 0;
         
+            // Limpiar la lista de regalos
+            selectedGiftsList.innerHTML = '';
+        
             selectedItems.forEach(item => {
+                // Calcular el total
                 const priceAttr = item.getAttribute('data-price');
                 const price = priceAttr ? parseInt(priceAttr) : 0;
                 if (!isNaN(price)) {
@@ -1918,12 +2025,24 @@
                 } else {
                    console.warn("Invalid price found for item:", item);
                 }
+
+                // Obtener el nombre y precio del regalo para mostrar
+                const giftName = item.querySelector('.gift-name') ? item.querySelector('.gift-name').textContent : 'Regalo';
+                const giftPrice = item.querySelector('.gift-price') ? item.querySelector('.gift-price').textContent : '';
+
+                // Crear elemento para la lista
+                const giftItemDiv = document.createElement('div');
+                giftItemDiv.className = 'selected-gift-item';
+                giftItemDiv.innerHTML = `
+                    <div class="selected-gift-name">${giftName}</div>
+                    <div class="selected-gift-price">${giftPrice}</div>
+                `;
+                selectedGiftsList.appendChild(giftItemDiv);
             });
         
             totalAmountEl.textContent = `S/ ${total.toLocaleString('es-PE')}`;
         
-            // --- ¡ESTA ES LA LÓGICA IMPORTANTE! ---
-            // Ahora, la caja de pago aparece solo si hay regalos seleccionados.
+            // Mostrar u ocultar la caja de pago
             if (selectedItems.length > 0) {
                 paymentBox.classList.add('visible');
             } else {
